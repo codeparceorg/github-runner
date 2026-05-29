@@ -13,4 +13,3 @@ jobs:
           echo "Runner funcionando"
           hostname
           whoami
-          docker --version
