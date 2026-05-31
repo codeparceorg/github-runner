@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: devops
+    runs-on: kubernetes
 
     steps:
       - name: Test

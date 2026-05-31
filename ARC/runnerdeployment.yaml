@@ -1,0 +1,12 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: org-runners
+spec:
+  replicas: 2
+  template:
+    spec:
+      organization: codeparceorg
+      labels:
+        - kubernetes
+        - linux
