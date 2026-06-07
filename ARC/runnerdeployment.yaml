@@ -2,11 +2,22 @@ apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
   name: org-runners
+  namespace: actions-runner-system
 spec:
-  replicas: 2
+  replicas: 1
   template:
     spec:
       organization: codeparceorg
+      group: hosted
       labels:
-        - kubernetes
+        - devops
+        - kubernetes 
         - linux
+      ephemeral: true
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
