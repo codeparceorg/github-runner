@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: [docker, vm, kubernetes]
+    runs-on: kubernetes
 
     steps:
       - name: Test
