@@ -11,15 +11,11 @@
 ```bash
 curl -o actions-runner-linux-x64-2.334.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.334.0/actions-runner-linux-x64-2.334.0.tar.gz
 ```
-#### Optional: Validate the hash
-```bash
-echo 
-"048024cd2c848eb6f14d5646d56c13a4def2ae7ee3ad12122bee960c56f3d271  actions-runner-linux-x64-2.334.0.tar.gz" | shasum -a 256 -c
-```
 #### Extract the installer
 
 ```bash
-tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz ./runner
+mkdir -p ./runner
+tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz -C ./runner
 ```
 
 ## Confgi & init 
@@ -32,7 +28,14 @@ tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz ./runner
 
 ## Ejcución con doker
 
+
 ```bash
+## los mismos pasos anteriores pero en la carpeta docker
+## 1. Download the latest runner package
+## 2. Extract the installer
+
+cd docker
+
 docker build -t github-runner .
 
 docker run -d -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token" github-runner
@@ -63,18 +66,15 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 helm repo add actions-runner-controller https://actions-runner-controller.github.io/actions-runner-controller
 
 ## Install helm chart
-helm upgrade --install --namespace actions-runner-system --create-namespace\
-  --set=authSecret.create=true\
-  --set=authSecret.github_token="REPLACE_YOUR_TOKEN_HERE"\
+helm upgrade --install --namespace actions-runner-system --create-namespace \
+  --set=authSecret.create=true \
+  --set=authSecret.github_token="YOUR_PESONAL_ACCES_TOKEN" \
   --wait actions-runner-controller actions-runner-controller/actions-runner-controller
-l
 ```
 
 #### Crear runner
 
-    En la documetacion explica los pasos para levantar un runner con respecto a un repo, pero en este caso se va levantar un runner con respecto a la organizacion para tener el runner global 
- 
- archivo para levantar con respecto a la organizacion [runnerdeployment.yaml](./ARC/runnerdeployment.yaml)
+ archivo para levantar runners en el cluster [runnerdeployment.yaml](./ARC/runnerdeployment.yaml) y el auto escalado [hras.yml](./ARC/hras.yml)
 
 
 ```bash

@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: kubernetes
+    runs-on: [docker, vm, kubernetes]
 
     steps:
       - name: Test
@@ -13,3 +13,4 @@ jobs:
           echo "Runner funcionando"
           hostname
           whoami
+          sleep 120

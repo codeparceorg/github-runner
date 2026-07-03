@@ -19,7 +19,10 @@ WORKDIR /github
 
 COPY runner  ./
 
+COPY entry.sh  ./
+
 CMD ["./entry.sh"]
+
 #CMD ["tail", "-f", "/dev/null"]
 
 ## pasar el token y la url de la organizacion por variables de entorno
