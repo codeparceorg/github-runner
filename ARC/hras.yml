@@ -12,8 +12,8 @@ spec:
   maxReplicas: 10
 
   metrics:
-    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
-      scaleUpThreshold: "5"
-      scaleDownThreshold: "1"
-      scaleUpFactor: "2"
-      scaleDownFactor: "0.5"
+    - type: PercentageRunnersBusy
+      scaleUpThreshold: '0.75'
+      scaleDownThreshold: '0.3'
+      scaleUpFactor: '1.4'
+      scaleDownFactor: '0.7'

@@ -42,11 +42,12 @@ docker run -d -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token" github
 ```
 
 
-# ARC (kubernetes runner)
+# ARC (kubernetes runner version antigua) 
 
 - [Pasos para la instalacion ](https://github.com/actions/actions-runner-controller/blob/master/docs/quickstart.md)
 - [Documentacion ARC](https://docs.github.com/es/actions/concepts/runners/actions-runner-controller)
 - [Automatically scaling runners](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md?utm_source=chatgpt.com)
+- [Documentacion mas detallada ](https://actions.github.io/actions-runner-controller/)
  
 
 ## Primeros pasos 
