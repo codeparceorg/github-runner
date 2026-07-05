@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: github-runner-admin
+rules:
+  # Permisos estándar
+  - apiGroups: ["", "apps", "extensions"]
+    resources: ["deployments", "services", "namespaces", "pods", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # PERMISO ESPECÍFICO PARA TRAEFIK
+  - apiGroups: ["traefik.io"]
+    resources: ["ingressroutes", "middlewares", "tlsoptions", "tlsstores"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]

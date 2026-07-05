@@ -7,7 +7,9 @@ spec:
   replicas: 1
   template:
     spec:
-      image: summerwind/actions-runner-dind
+      image: ghcr.io/codeparceorg/runner-arc:latest # summerwind/actions-runner-dind
+      imagePullSecrets:
+        - name: ghcr-secret
       dockerdWithinRunnerContainer: true
       organization: codeparceorg
       group: lab
