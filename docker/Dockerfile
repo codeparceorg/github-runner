@@ -13,13 +13,15 @@ RUN useradd -m -s /bin/bash devops && \
 
 RUN echo "devops ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER devops
-
 WORKDIR /github
 
-COPY runner  ./
-
 COPY entry.sh  ./
+
+RUN chmod +x entry.sh && chown devops:devops -R /github
+
+USER devops
+
+COPY runner  ./
 
 CMD ["./entry.sh"]
 
