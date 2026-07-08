@@ -38,7 +38,7 @@ cd docker
 
 docker build -t github-runner .
 
-docker run -d -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token" github-runner
+docker run -d -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token"  -v /var/run/docker.sock:/var/run/docker.sock  github-runner
 ```
 
 
