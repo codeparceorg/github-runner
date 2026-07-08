@@ -38,7 +38,7 @@ cd docker
 
 docker build -t github-runner .
 
-docker run -d -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token"  -v /var/run/docker.sock:/var/run/docker.sock  github-runner
+docker run -d  --name github-runner -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token" --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock   github-runner
 ```
 
 

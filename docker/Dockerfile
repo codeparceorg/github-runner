@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. Instalamos las dependencias necesarias para Docker
+# Dependencias
 RUN apt-get update && apt-get install -y \
     sudo \
     curl \
@@ -11,33 +11,33 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Instalamos el CLI de Docker (Docker Engine)
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
-    apt-get update && apt-get install -y docker-ce-cli && \
+# Instalar Docker CLI (no Docker Engine)
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+    gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    chmod a+r /etc/apt/keyrings/docker.gpg && \
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo $VERSION_CODENAME) stable" | \
+    tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli docker-compose-plugin && \
     rm -rf /var/lib/apt/lists/*
 
+# Usuario
 RUN useradd -m -s /bin/bash devops && \
     echo "devops:devops" | chpasswd && \
-    usermod -aG sudo devops
-
-RUN echo "devops ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    usermod -aG sudo devops && \
+    echo "devops ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR /github
 
-COPY entry.sh  ./
+COPY entry.sh ./
+RUN chmod +x entry.sh
 
-RUN chmod +x entry.sh && chown devops:devops -R /github
+COPY runner ./
+RUN chown -R devops:devops /github
 
 USER devops
 
-COPY runner  ./
-
 CMD ["./entry.sh"]
-
-#CMD ["tail", "-f", "/dev/null"]
-
-## pasar el token y la url de la organizacion por variables de entorno
-# -e URL_ORGANIZATION="https://github.com/my-org" \
-# -e RUNNER_TOKEN="my-runner-token"
-# -v /var/run/docker.sock:/var/run/docker.sock

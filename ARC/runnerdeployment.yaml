@@ -15,7 +15,7 @@ spec:
       group: lab
       labels:
         - devops
-        - kb 
+        - kubernetes 
         - linux
       ephemeral: true
       resources:
