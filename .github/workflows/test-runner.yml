@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: pc
+    runs-on: docker
 
     steps:
       - name: Mostrar variables
