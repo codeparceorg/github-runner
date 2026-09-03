@@ -7,15 +7,15 @@ spec:
   replicas: 1
   template:
     spec:
-      image: ghcr.io/codeparceorg/runner-arc:latest # summerwind/actions-runner-dind
-      imagePullSecrets:
-        - name: ghcr-secret
+      image: summerwind/actions-runner-dind #ghcr.io/codeparceorg/runner-arc:latest # summerwind/actions-runner-dind
+      # imagePullSecrets:
+      #   - name: ghcr-secret
       dockerdWithinRunnerContainer: true
       organization: codeparceorg
       group: lab
       labels:
         - devops
-        - kubernetes 
+        - kubernetes
         - linux
       ephemeral: true
       resources:

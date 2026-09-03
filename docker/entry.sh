@@ -9,7 +9,7 @@ sudo ./bin/installdependencies.sh
 # Create the runner and start the configuration experience
 echo "Configuring the GitHub Runner with the provided URL and token..."
 ./config.sh --url  ${URL_ORGANIZATION} --token ${RUNNER_TOKEN} \
-  --name "runner-devops-01" \
+  --name "runner-docker-01" \
   --runnergroup "hosted" \
   --labels "devops,docker" \
   --work "_work" \

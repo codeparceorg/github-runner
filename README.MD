@@ -6,19 +6,22 @@
 
 - [github-runners Helm](https://artifacthub.io/packages/helm/custom-helm-charts/github-runners)
 
+## Runner a nivel de host
 
-#### Download the latest runner package
-```bash
-curl -o actions-runner-linux-x64-2.334.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.334.0/actions-runner-linux-x64-2.334.0.tar.gz
-```
-#### Extract the installer
+### Descargar el instalador y descomprimirlo
 
 ```bash
-mkdir -p ./runner
-tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz -C ./runner
+# crear carpetar y moverse
+mkdir actions-runner && cd actions-runner
+
+## verifciar la ultima version disponible
+curl -o actions-runner-linux-x64-2.337.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz
+
+## descomprimir el instalador
+tar xzf ./actions-runner-linux-x64-2.337.0.tar.gz
 ```
 
-## Confgi & init 
+### Confgi & init 
 ```bash
 ./config.sh --url my-url-oganitation --token my-token
 
@@ -26,23 +29,21 @@ tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz -C ./runner
 ./run.sh
 ```
 
-## Ejcución con doker
-
+## Runner a nivel de docker
 
 ```bash
-## los mismos pasos anteriores pero en la carpeta docker
-## 1. Download the latest runner package
-## 2. Extract the installer
-
+# ir a la carpeta docker dentro del repo
 cd docker
+
+## los mismos pasos anteriores pero en la carpeta docker
+## 1. Descargar el instalador y descomprimirlo
 
 docker build -t github-runner .
 
-docker run -d  --name github-runner -e URL_ORGANIZATION="your-url" -e RUNNER_TOKEN="your-token" --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock   github-runner
+docker run -d  --name github-runner -e URL_ORGANIZATION="https://github.com/codeparceorg" -e RUNNER_TOKEN="tu-personal-acces-token" --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock   github-runner
 ```
 
-
-# ARC (kubernetes runner version antigua) 
+# Runner a nivel de Kubernetes (ARC) 
 
 - [Pasos para la instalacion ](https://github.com/actions/actions-runner-controller/blob/master/docs/quickstart.md)
 - [Documentacion ARC](https://docs.github.com/es/actions/concepts/runners/actions-runner-controller)

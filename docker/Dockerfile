@@ -35,7 +35,7 @@ WORKDIR /github
 COPY entry.sh ./
 RUN chmod +x entry.sh
 
-COPY runner ./
+COPY actions-runner ./
 RUN chown -R devops:devops /github
 
 USER devops
