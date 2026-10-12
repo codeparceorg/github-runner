@@ -7,9 +7,10 @@ spec:
   replicas: 1
   template:
     spec:
-      image: summerwind/actions-runner-dind #ghcr.io/codeparceorg/runner-arc:latest # summerwind/actions-runner-dind
-      # imagePullSecrets:
-      #   - name: ghcr-secret
+      serviceAccountName: github-runner-sa
+      image: ghcr.io/codeparceorg/runner-arc:latest # summerwind/actions-runner-dind
+      imagePullSecrets:
+        - name: ghcr-secret
       dockerdWithinRunnerContainer: true
       organization: codeparceorg
       group: lab
@@ -20,8 +21,8 @@ spec:
       ephemeral: true
       resources:
         requests:
-          cpu: "0.25"
+          cpu: "0.5"
           memory: "512Mi"
         limits:
-          cpu: "0.5"
-          memory: "1Gi"
+          cpu: "0.7"
+          memory: "720Mi"
